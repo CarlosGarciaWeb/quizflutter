@@ -1,32 +1,17 @@
 import 'package:flutter/material.dart';
 
-const startAlignment = Alignment.topLeft;
-const endAlignment = Alignment.bottomRight;
 
-const defaultStartColor = Colors.deepPurpleAccent;
-const defaultEndColor = Colors.purple;
+class StartScreen extends StatelessWidget{
+  
+    void startQuiz() {}
 
-class GradientContainer extends StatelessWidget {
-  final Color colorStart;
-  final Color colorEnd;
-
-  void startQuiz() {}
-
-  const GradientContainer(
-      {Key? key,
-      this.colorStart = defaultStartColor,
-      this.colorEnd = defaultEndColor})
-      : super(key: key);
+  const StartScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: startAlignment,
-              end: endAlignment,
-              colors: [colorStart, colorEnd])),
-      child: Center(
+    return Center(
           child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -50,7 +35,6 @@ class GradientContainer extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ))
         ],
-      )),
-    );
+      ));
   }
 }

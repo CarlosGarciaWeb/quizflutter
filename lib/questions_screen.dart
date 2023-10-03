@@ -1,4 +1,7 @@
+import 'package:adv_basics_flutter/data/questions.dart';
 import 'package:flutter/material.dart';
+import 'package:adv_basics_flutter/answer_button.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -10,22 +13,43 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
+  var currentQuestionIndex = 0;
+
+  void answerQuestion() {
+    setState(() {
+      if(currentQuestionIndex < 4)
+      {currentQuestionIndex++;}
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentQuestion = questions[currentQuestionIndex];
     return SizedBox(
       width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'The Questions...',
-            style: TextStyle(color: Colors.white),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          ElevatedButton(onPressed: () {}, child: Text('Answer here...'))
-        ],
+      child: Container(
+        margin: const EdgeInsets.all(40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              currentQuestion.text,
+              style: GoogleFonts.lato(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            ...currentQuestion.getShuffledAnswers().map((item) {
+              return AnswerButton(
+                  answerText: item, selectAnswer: answerQuestion);
+            })
+          ],
+        ),
       ),
     );
   }
